@@ -1,0 +1,7 @@
+node_modules
+static/.eslintrc.js
+static/.prettierignore
+vendor
+.gitlab-ci.yml
+config.yaml
+README.md

@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "falcon-back"
+version = "0.1.0"
+description = ""
+authors = ["Sadman Naib <samsikder47@gmail.com>"]
+readme = "README.md"
+packages = [{include = "falcon_back"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^2.3.2"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
