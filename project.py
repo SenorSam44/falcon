@@ -12,11 +12,6 @@ from urllib.parse import quote_plus, urlencode
 from werkzeug.exceptions import HTTPException
 
 from utils.logger import app_logger
-from utils.sg_mail import (
-    send_multiple_mail,
-    send_mail_about_new_student,
-    send_confirmation_mail_to_student,
-)
 
 # ENV
 # 👆 We're continuing from the steps above. Append this to your project.py file.
@@ -28,10 +23,6 @@ if ENV_FILE:
 # Flask
 app = Flask(__name__, static_url_path="/rest/static", static_folder="static")
 app.logger.critical("env file = " + str(ENV_FILE))
-app.secret_key = env.get("APP_SECRET_KEY")
-app.AUTH0_CLIENT_ID = env.get("AUTH0_CLIENT_ID")
-app.AUTH0_CLIENT_SECRET = env.get("AUTH0_CLIENT_SECRET")
-app.AUTH0_DOMAIN = env.get("AUTH0_DOMAIN")
 app_logger = app_logger()
 
 app.debug = True
@@ -99,22 +90,7 @@ def hello():
 @cross_origin(supports_credentials=True)
 def contact_us_mail():
     data = request.json
-    subject = f"CoderOgress contact email from {data['name']}"
-    recipients = []
-    try:
-        recipients = json.loads(env.get("EMAIL_SENDGRID_TO"))
-        app_logger.debug(recipients)
-    except Exception as e:
-        app_logger.error(e)
-        try:
-            recipients = json.loads(env.get("EMAIL_SENDGRID_TO")[1:-1])
-            app_logger.debug(recipients)
-        except Exception as e:
-            app_logger.error(e)
-
-    response = send_multiple_mail(
-        subject, recipients, f"{data['message']}\n\n from {data['email']}"
-    )
+    response = {}
     return jsonify(response)
 
 
